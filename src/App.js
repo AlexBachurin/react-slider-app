@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaQuoteRight } from 'react-icons/fa'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import './App.css';
@@ -12,7 +12,7 @@ function App() {
   //next slide
   const nextSlide = () => {
     //check for index boundaries
-    if (index > people.length - 2) {
+    if (index >= people.length - 1) {
       setIndex(0);
     } else {
       setIndex(index + 1);
@@ -27,6 +27,28 @@ function App() {
       setIndex(index - 1)
     }
   }
+
+  // AUTOSLIDE
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      setIndex(index + 1)
+    }, 5000)
+    //need clear function so we wont create a ton of setIntervals then we change index
+    //and call useEffect
+    return () => clearInterval(timerId)
+
+  }, [index])
+
+  //need to add another useEffect so autoslide wont go out of bounds
+  useEffect(() => {
+    if (index > people.length - 1) {
+      setIndex(0)
+    }
+    if (index < 0) {
+      setIndex(people.length - 1)
+    }
+  }, [index])
+
   return (
     <section className="section">
       <div className="title">
