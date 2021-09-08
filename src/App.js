@@ -36,12 +36,19 @@ function App() {
       </div>
       <div className="section-center">
         {people.map((person, personIndex) => {
-          let clsNames = 'article';
+          let clsNames = 'nextSlide';
           //show active slide based on what index we have in our state,
           //if it matches with current iterated index of person, then show it
           if (personIndex === index) {
-            clsNames += ' activeSlide'
+            clsNames = 'activeSlide'
           }
+          //only change previous slide name to 'lastSlide when we arent on 0 element
+          //because we will get -1 so it wont work
+          //with this statement 'lastslide' class will stay on last element
+          if (personIndex === index - 1 || ((index === 0) && (personIndex === people.length - 1))) {
+            clsNames = 'lastSlide'
+          }
+
           const { id, image, name, title, quote } = person;
           return <article key={id} className={clsNames}>
             <img src={image} alt={name} className="person-img" />
@@ -65,3 +72,11 @@ function App() {
 }
 
 export default App;
+
+
+//slider logic
+//active last
+//0       3
+//1       0
+//2       1
+//3       2
