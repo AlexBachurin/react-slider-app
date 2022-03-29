@@ -5,6 +5,7 @@ import './App.css';
 import data from './data'
 
 function App() {
+  //eslint-disable-next-line
   const [people, setPeople] = useState(data);
   //set index for slider
   const [index, setIndex] = useState(0)
@@ -47,6 +48,7 @@ function App() {
     if (index < 0) {
       setIndex(people.length - 1)
     }
+    //eslint-disable-next-line
   }, [index])
 
   return (
